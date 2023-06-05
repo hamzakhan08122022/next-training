@@ -1,22 +1,23 @@
+'use client';
 import { useEffect, useState } from 'react';
-import { Router, useRouter } from 'next/router';
 import axios from 'axios';
+
 
 interface Post {
   id: number;
   title: string;
   body: string;
 }
-
-const PostPage = () => {
-  const { query } = useRouter();
-  const { id } = query;
+interface Params {
+  [key: string]: string;
+}
+const PostPage = ({ params }: { params: Params }) => {
+  const { id } = params;
   const [post, setPost] = useState<Post | null>(null);
-
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get(`/api/${id}`);
+        const response = await axios.get(`/api/posts/${id}`);
         const postData: Post = response.data;
         setPost(postData);
       } catch (error) {

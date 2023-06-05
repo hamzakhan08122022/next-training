@@ -1,3 +1,4 @@
+"use client"
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
@@ -13,7 +14,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get('/api');
+        const response = await axios.get('/api/posts');
         const postsData: Post[] = response.data;
         setPosts(postsData);
       } catch (error) {
@@ -29,7 +30,7 @@ const HomePage = () => {
       <ul>
         {posts.map((post) => (
           <li key={post.id}>
-            <Link href={`/post/${post.id}`}>
+            <Link href={`/posts/${post.id}`}>
               <div className="post-link">{post.title}</div>
             </Link>
           </li>
